@@ -42900,7 +42900,7 @@ spaceship_a.core.setup = function() {
   quil.core.color_mode.call(null, new cljs.core.Keyword(null, "rgb", "rgb", 1432123467));
   quil.core.image_mode.call(null, new cljs.core.Keyword(null, "center", "center", -748944368));
   spaceship_a.core.load_image.call(null, new cljs.core.Keyword(null, "body", "body", -2049205669), "Body.png");
-  spaceship_a.core.load_image.call(null, new cljs.core.Keyword(null, "bg", "bg", -206688421), "Bg.png");
+  spaceship_a.core.load_image.call(null, new cljs.core.Keyword(null, "bg", "bg", -206688421), "Bg.jpg");
   spaceship_a.core.load_image.call(null, new cljs.core.Keyword(null, "star", "star", 279424429), "Star.png");
   spaceship_a.core.load_image.call(null, new cljs.core.Keyword(null, "anchor", "anchor", 1549638489), "Anchor.png");
   spaceship_a.core.load_image.call(null, new cljs.core.Keyword(null, "antenna", "antenna", -1733193971), "Antenna.png");
@@ -42910,11 +42910,11 @@ spaceship_a.core.setup = function() {
   spaceship_a.core.load_image.call(null, new cljs.core.Keyword(null, "flag1", "flag1", -664409312), "Flag2.png");
   cljs.core.doall.call(null, cljs.core.map.call(null, spaceship_a.core.load_image, new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "fire0", "fire0", 1324592328), new cljs.core.Keyword(null, "fire2", "fire2", 1433151143), new cljs.core.Keyword(null, "fire1", "fire1", 688084127), new cljs.core.Keyword(null, "fire3", "fire3", 1104240365)], null), new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, ["Fire1.png", 
   "Fire2.png", "Fire3.png", "Fire4.png"], null)));
-  return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "stars", "stars", -556837771), cljs.core.take.call(null, 25, cljs.core.repeatedly.call(null, function() {
+  return new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "stars", "stars", -556837771), cljs.core.take.call(null, 25, cljs.core.repeatedly.call(null, function() {
     return spaceship_a.core.random_star.call(null, 6);
   })), new cljs.core.Keyword(null, "stars2", "stars2", 1678585348), cljs.core.take.call(null, 25, cljs.core.repeatedly.call(null, function() {
     return spaceship_a.core.random_star.call(null, 3);
-  }))], null);
+  })), new cljs.core.Keyword(null, "fade", "fade", 1167694157), 1.2], null);
 };
 spaceship_a.core.wrap = function(a) {
   var b = cljs.core.nth.call(null, a, 0, null), c = cljs.core.nth.call(null, a, 1, null);
@@ -42927,7 +42927,9 @@ spaceship_a.core.move_star = function(a) {
   return spaceship_a.core.wrap.call(null, new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [b - a, c, a], null));
 };
 spaceship_a.core.update = function(a) {
-  return cljs.core.update_in.call(null, cljs.core.update_in.call(null, a, new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "stars", "stars", -556837771)], null), function(a) {
+  return cljs.core.update_in.call(null, cljs.core.update_in.call(null, cljs.core.update_in.call(null, a, new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "fade", "fade", 1167694157)], null), function(a) {
+    return 0 < a ? a - .02 : a;
+  }), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "stars", "stars", -556837771)], null), function(a) {
     return cljs.core.map.call(null, spaceship_a.core.move_star, a);
   }), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "stars2", "stars2", 1678585348)], null), function(a) {
     return cljs.core.map.call(null, spaceship_a.core.move_star, a);
@@ -42960,53 +42962,55 @@ spaceship_a.core.draw_stars = function(a) {
   }
 };
 spaceship_a.core.draw = function(a) {
-  var b = quil.core.width.call(null) / 2, c = quil.core.height.call(null) / 2;
-  spaceship_a.core.draw_image.call(null, new cljs.core.Keyword(null, "bg", "bg", -206688421), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [b, c], null));
+  var b = quil.core.width.call(null), c = quil.core.height.call(null), d = b / 2, e = c / 2;
+  spaceship_a.core.draw_image.call(null, new cljs.core.Keyword(null, "bg", "bg", -206688421), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [d, e], null));
   spaceship_a.core.draw_stars.call(null, (new cljs.core.Keyword(null, "stars2", "stars2", 1678585348)).cljs$core$IFn$_invoke$arity$1(a));
   quil.core.push_matrix.call(null);
-  quil.core.translate.call(null, b + spaceship_a.core.pulse.call(null, -20, 20, 3), c + spaceship_a.core.pulse.call(null, -10, 10, .25));
+  quil.core.translate.call(null, d + spaceship_a.core.pulse.call(null, -20, 20, 3), e + spaceship_a.core.pulse.call(null, -10, 10, .25));
   quil.core.rotate.call(null, spaceship_a.core.pulse.call(null, -.02, .02, .5));
   spaceship_a.core.draw_image.call(null, spaceship_a.core.animated_keyword.call(null, "fire", 4, 10), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-300, 64], null));
-  b = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [145, 20], null);
+  d = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [145, 20], null);
   quil.core.push_matrix.call(null);
-  quil.core.translate.call(null, b);
-  b = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [spaceship_a.core.pulse.call(null, .12, -.12, 1)], null);
+  quil.core.translate.call(null, d);
+  d = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [spaceship_a.core.pulse.call(null, .12, -.12, 1)], null);
   quil.core.push_matrix.call(null);
-  cljs.core.apply.call(null, quil.core.rotate, b);
+  cljs.core.apply.call(null, quil.core.rotate, d);
   spaceship_a.core.draw_image.call(null, new cljs.core.Keyword(null, "antenna", "antenna", -1733193971), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [50, 0], null));
   quil.core.pop_matrix.call(null);
   quil.core.pop_matrix.call(null);
-  b = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-160, spaceship_a.core.pulse.call(null, 67, 74, .2)], null);
+  d = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-160, spaceship_a.core.pulse.call(null, 67, 74, .2)], null);
   quil.core.push_matrix.call(null);
-  quil.core.translate.call(null, b);
+  quil.core.translate.call(null, d);
   spaceship_a.core.draw_image.call(null, new cljs.core.Keyword(null, "cupola", "cupola", 2008695293), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [160, -235], null));
   quil.core.pop_matrix.call(null);
   spaceship_a.core.draw_image.call(null, new cljs.core.Keyword(null, "body", "body", -2049205669), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [0, 0], null));
-  b = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-175, 75], null);
+  d = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-175, 75], null);
   quil.core.push_matrix.call(null);
-  quil.core.translate.call(null, b);
-  b = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [spaceship_a.core.pulse.call(null, .1, -.1, .25)], null);
+  quil.core.translate.call(null, d);
+  d = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [spaceship_a.core.pulse.call(null, .1, -.1, .25)], null);
   quil.core.push_matrix.call(null);
-  cljs.core.apply.call(null, quil.core.rotate, b);
+  cljs.core.apply.call(null, quil.core.rotate, d);
   spaceship_a.core.draw_image.call(null, new cljs.core.Keyword(null, "anchor", "anchor", 1549638489), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [0, 35], null));
   quil.core.pop_matrix.call(null);
   quil.core.pop_matrix.call(null);
-  b = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-72, 4], null);
+  d = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-72, 4], null);
   quil.core.push_matrix.call(null);
-  quil.core.translate.call(null, b);
-  b = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [.01 * quil.core.millis.call(null)], null);
+  quil.core.translate.call(null, d);
+  d = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [.01 * quil.core.millis.call(null)], null);
   quil.core.push_matrix.call(null);
-  cljs.core.apply.call(null, quil.core.rotate, b);
+  cljs.core.apply.call(null, quil.core.rotate, d);
   spaceship_a.core.draw_image.call(null, new cljs.core.Keyword(null, "engine", "engine", 1459054265), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [0, 0], null));
   quil.core.pop_matrix.call(null);
   quil.core.pop_matrix.call(null);
-  b = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-72, 4], null);
+  d = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-72, 4], null);
   quil.core.push_matrix.call(null);
-  quil.core.translate.call(null, b);
+  quil.core.translate.call(null, d);
   spaceship_a.core.draw_image.call(null, spaceship_a.core.animated_keyword.call(null, "flag", 2, 10), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [-100, -53], null));
   quil.core.pop_matrix.call(null);
   quil.core.pop_matrix.call(null);
-  return spaceship_a.core.draw_stars.call(null, (new cljs.core.Keyword(null, "stars", "stars", -556837771)).cljs$core$IFn$_invoke$arity$1(a));
+  spaceship_a.core.draw_stars.call(null, (new cljs.core.Keyword(null, "stars", "stars", -556837771)).cljs$core$IFn$_invoke$arity$1(a));
+  quil.core.fill.call(null, 255, 255 * (new cljs.core.Keyword(null, "fade", "fade", 1167694157)).cljs$core$IFn$_invoke$arity$1(a));
+  return quil.core.rect.call(null, -1, -1, 2 + b, 2 + c);
 };
 spaceship_a.core.spaceship_a = function() {
   return quil.sketch.sketch.call(null, new cljs.core.Keyword(null, "draw", "draw", 1358331674), spaceship_a.core.draw, new cljs.core.Keyword(null, "middleware", "middleware", 1462115504), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [quil.middleware.fun_mode], null), new cljs.core.Keyword(null, "setup", "setup", 1987730512), spaceship_a.core.setup, new cljs.core.Keyword(null, "size", "size", 1098693007), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, 

@@ -35,7 +35,7 @@
   (q/color-mode :rgb)
   (q/image-mode :center)
   (load-image :body "Body.png")
-  (load-image :bg "Bg.png")
+  (load-image :bg "Bg.jpg")
   (load-image :star "Star.png")
   (load-image :anchor "Anchor.png")
   (load-image :antenna "Antenna.png")
@@ -45,7 +45,8 @@
   (load-image :flag1 "Flag2.png")
   (doall (map load-image [:fire0 :fire2 :fire1 :fire3] ["Fire1.png" "Fire2.png" "Fire3.png" "Fire4.png"]))
   {:stars  (take 25 (repeatedly #(random-star 6.0)))
-   :stars2 (take 25 (repeatedly #(random-star 3.0)))}
+   :stars2 (take 25 (repeatedly #(random-star 3.0)))
+   :fade 1.2}
   )
 
 (defn wrap [[x y v]]
@@ -58,6 +59,7 @@
 
 (defn update [state]
   (-> state
+      (update-in [:fade] #(if (> % 0.0) (- % 0.02) %))
       (update-in [:stars] #(map move-star %))
       (update-in [:stars2] #(map move-star %))))
 
@@ -77,8 +79,9 @@
 
 (defn draw [state]
   (let [w (q/width)
+        h (q/height)
         hw (/ w 2)
-        hh (/ (q/height) 2)]
+        hh (/ h 2)]
     (draw-image :bg [hw hh])
     (draw-stars (:stars2 state))
     (q/push-matrix)
@@ -100,7 +103,9 @@
     (q/with-translation [-72 4]
       (draw-image (animated-keyword "flag" 2 10.0) [-100 -53]))
     (q/pop-matrix)
-    (draw-stars (:stars state)))
+    (draw-stars (:stars state))
+    (q/fill 255 (* 255 (:fade state)))
+    (q/rect -1 -1 (+ 2 w) (+ 2 h)))
   )
 
 (q/defsketch spaceship-a
