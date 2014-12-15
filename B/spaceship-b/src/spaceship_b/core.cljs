@@ -94,15 +94,22 @@
 
     ;; Ship
     (q/push-matrix)
-    (q/translate (+ hw #_(pulse -20 20 3.0)) (+ hh #_(pulse -10 10 0.25)))
-    ;;(q/rotate (pulse -0.02 0.02 0.5))
+    (q/translate (+ hw (pulse -20 20 3.0)) (+ hh (pulse -20 10 0.2)))
+    (q/rotate (pulse -0.02 0.02 0.5))
 
     (q/with-translation [0 -75]
-      (q/with-rotation [(pulse 0.1 -0.01 0.5)]
+      (q/with-rotation [(pulse 0.1 -0.01 0.2)]
+        (q/with-translation [-240 160]
+          (draw-image (animated-keyword "fire" 4 8.0) [-75 0]))
+        (q/with-translation [-250 195]
+          (draw-image (animated-keyword "fire" 4 10.0) [-75 0]))
+        (q/with-translation [-230 185]
+          (draw-image (animated-keyword "fire" 4 9.0) [-75 0]))
         (draw-image :tail [-150 80])
         (q/with-translation [-92 -32]
-          (q/with-rotation [(pulse 0.15 -0.15 0.5)]
-            (draw-image :flag [0 -40])))))
+          (q/with-rotation [(pulse 0.15 -0.15 0.2)]
+            (draw-image :flag [0 -40])
+            ))))
 
     (q/with-translation [-13 (pulse -170 -185 0.3)]
       (draw-image :b1 [0 0]))
