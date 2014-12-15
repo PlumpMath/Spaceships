@@ -68,6 +68,14 @@
   (load-image :tail "Tail.png")
   (load-image :head "Head.png")
   (load-image :flag "Flag.png")
+  (load-image :b1 "Button1.png")
+  (load-image :b2 "Button2.png")
+  (load-image :b3 "Button3.png")
+  (load-image :b4 "Button4.png")
+  (load-image :r1 "Rocket1.png")
+  (load-image :r2 "Rocket2.png")
+  (load-image :r3 "Rocket3.png")
+  (load-image :r4 "Rocket4.png")  
   (doall (map load-image [:fire0 :fire2 :fire1 :fire3] ["Fire1.png" "Fire2.png" "Fire3.png" "Fire4.png"]))  
   {:stars  (take 25 (repeatedly #(random-star 6.0)))
    :stars2 (take 25 (repeatedly #(random-star 3.0)))
@@ -96,8 +104,33 @@
           (q/with-rotation [(pulse 0.15 -0.15 0.5)]
             (draw-image :flag [0 -40])))))
 
-    (draw-image :body [150 0])
+    (q/with-translation [-13 (pulse -170 -185 0.3)]
+      (draw-image :b1 [0 0]))
+    (q/with-translation [28 (pulse -170 -185 0.1)]
+      (draw-image :b2 [0 0]))
+    (q/with-translation [74 (pulse -170 -185 0.2)]
+      (draw-image :b3 [0 0]))
+    (q/with-translation [120 (pulse -170 -185 0.15)]
+      (draw-image :b4 [0 0]))
 
+    (q/with-translation [-5 163]
+      (q/with-rotation [(pulse -0.05 0.05 0.15)]
+        (draw-image :r1 [0 22])))
+
+    (q/with-translation [40 163]
+      (q/with-rotation [(pulse 0.05 -0.05 0.1)]
+        (draw-image :r2 [0 22])))
+
+    (q/with-translation [85 163]
+      (q/with-rotation [(pulse -0.05 0.05 0.13)]
+        (draw-image :r3 [0 22])))
+
+    (q/with-translation [125 163]
+      (q/with-rotation [(pulse 0.05 -0.05 0.12)]
+        (draw-image :r4 [0 22])))
+
+    (draw-image :body [150 0])
+    
     (q/with-translation [(pulse 275.0 280.0 0.2) 96]
       (draw-image :head [0 0]))    
     
